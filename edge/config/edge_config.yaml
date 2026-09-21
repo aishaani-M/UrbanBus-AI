@@ -1,0 +1,144 @@
+# UrbanBus Edge AI — Configuration
+# All settings for edge processing on a single bus
+
+system:
+  bus_id: "TS-001"
+  log_level: "INFO"
+  output_dir: "./output"
+  max_workers: 4
+  device: "cuda"  # cuda, cpu
+
+cameras:
+  front:
+    source: 0  # Device index, RTSP URL, or video file path
+    resolution: [1920, 1080]
+    fps: 30
+    enabled: true
+    pipelines: ["road_defect", "vehicle", "pedestrian", "incident"]
+  rear:
+    source: 1
+    resolution: [1920, 1080]
+    fps: 30
+    enabled: true
+    pipelines: ["vehicle", "incident"]
+  left:
+    source: 2
+    resolution: [1280, 720]
+    fps: 15
+    enabled: true
+    pipelines: ["road_defect", "pedestrian"]
+  right:
+    source: 3
+    resolution: [1280, 720]
+    fps: 15
+    enabled: true
+    pipelines: ["road_defect", "pedestrian"]
+
+models:
+  road_defect:
+    path: "./models/road_defect_yolov8n.onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.45
+    nms_threshold: 0.5
+    classes:
+      0: pothole
+      1: crack
+      2: damaged_road
+      3: missing_divider
+      4: missing_zebra_crossing
+      5: damaged_signboard
+      6: missing_signboard
+      7: waterlogging
+
+  vehicle:
+    path: "./models/vehicle_yolov8m.onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.40
+    nms_threshold: 0.45
+    classes:
+      0: car
+      1: truck
+      2: bus
+      3: two_wheeler
+      4: auto_rickshaw
+      5: bicycle
+      6: emergency_vehicle
+
+  pedestrian:
+    path: "./models/pedestrian_yolov8s.onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.50
+    nms_threshold: 0.5
+    classes:
+      0: person
+      1: child
+      2: school_child
+      3: cyclist
+
+  plate_detector:
+    path: "./models/plate_detector_yolov8n.onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.55
+    nms_threshold: 0.4
+
+  plate_ocr:
+    path: "./models/plate_ocr.onnx"
+    input_height: 48
+    input_width: 168
+    charset: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+tracking:
+  max_age: 30          # Frames to keep lost tracks
+  min_hits: 3          # Minimum detections before confirmed
+  iou_threshold: 0.3   # IoU for association
+  high_threshold: 0.6  # High confidence detection threshold
+  low_threshold: 0.1   # Low confidence detection threshold (ByteTrack)
+  max_tracks: 200      # Maximum simultaneous tracks
+
+deduplication:
+  spatial_radius_m: 15.0    # Minimum distance between same-type events
+  temporal_window_s: 30.0   # Time window for deduplication
+  enabled: true
+
+density_estimation:
+  segment_length_m: 100.0   # Road segment length for counting
+  reporting_interval_s: 30  # How often to report density
+  min_vehicles: 3           # Minimum vehicles to report
+
+incident_detection:
+  imu_accel_threshold: 2.5    # G-force threshold for collision event
+  speed_threshold_kmh: 80.0   # Rash driving speed threshold
+  track_history_frames: 90    # Frames to keep vehicle track history
+  anpr_on_incident: true      # Run ANPR when incident detected
+
+sensors:
+  gps:
+    port: "/dev/ttyUSB0"   # Serial port or "simulated"
+    baud_rate: 9600
+    update_rate_hz: 1
+    mode: "simulated"      # "serial" or "simulated"
+
+  imu:
+    port: "/dev/ttyUSB1"
+    baud_rate: 115200
+    update_rate_hz: 50
+    mode: "simulated"      # "serial" or "simulated"
+
+mqtt:
+  broker_host: "localhost"
+  broker_port: 1883
+  username: ""
+  password: ""
+  topic_prefix: "urbanbus/events"
+  qos: 1
+  keepalive: 60
+  reconnect_interval_s: 5
+  max_buffer_size: 1000    # Max events to buffer offline
+
+edge_optimization:
+  adaptive_fps: true           # Reduce FPS on empty roads
+  min_fps: 5                   # Minimum FPS when adaptive
+  thumbnail_quality: 75        # JPEG quality for thumbnails
+  thumbnail_max_dim: 320       # Max dimension for thumbnails
+  batch_inference: false       # Batch multiple frames per inference
+  model_warmup_frames: 5       # Warmup frames on startup

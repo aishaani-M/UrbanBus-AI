@@ -1,0 +1,42 @@
+# Requirements for UrbanBus Edge AI Module
+# Core
+numpy>=1.24.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+pyyaml>=6.0
+
+# Deep Learning / Inference
+onnxruntime-gpu>=1.16.0  # Use onnxruntime for CPU-only
+ultralytics>=8.1.0       # YOLOv8 model utilities
+
+# Tracking
+scipy>=1.11.0
+lap>=0.4.0               # Linear assignment for ByteTrack
+filterpy>=1.4.5          # Kalman filter
+
+# ANPR / OCR
+# (Handled via ONNX models, no extra dependency)
+
+# Sensors
+pyserial>=3.5            # GPS/IMU serial communication
+pynmea2>=1.19.0          # NMEA GPS sentence parsing
+
+# Messaging
+paho-mqtt>=1.6.0         # MQTT client
+
+# Data Models
+pydantic>=2.0.0
+
+# Utilities
+uuid
+python-dateutil>=2.8.0
+
+# Logging
+loguru>=0.7.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Optional: TensorRT (for Jetson / NVIDIA GPU)
+# tensorrt>=8.6.0

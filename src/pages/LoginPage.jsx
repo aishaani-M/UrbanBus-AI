@@ -93,7 +93,7 @@ export default function LoginPage() {
           </div>
           <div className="login-branding-text">
             <div className="login-ministry">Government of India</div>
-            <div className="login-dept">Ministry of Housing and Urban Affairs</div>
+            <div className="login-dept">Bharat Electronics Pvt. Ltd</div>
           </div>
         </div>
 
@@ -198,10 +198,10 @@ export default function LoginPage() {
       {/* Footer */}
       <div className="login-footer">
         <div className="login-footer-text">
-          &copy; {new Date().getFullYear()} Ministry of Housing and Urban Affairs, Government of India. All Rights Reserved.
+          &copy; {new Date().getFullYear()} Government of India. All Rights Reserved.
         </div>
         <div className="login-footer-text">
-          Designed &amp; Developed by National Informatics Centre (NIC)
+          Designed &amp; SIH Team Intelligent Fleet
         </div>
       </div>
 

@@ -11,7 +11,7 @@ import { AREAS } from '../data/mockData';
  *   { events, busUpdates, isConnected, stats, startSimulation, stopSimulation }
  */
 
-const WS_URL = `ws://${window.location.hostname}:8000/ws`;
+const WS_URL = "wss://urbanbus-ai.onrender.com/ws";
 const MAX_RETRIES = 5;
 const BASE_RETRY_MS = 1000;
 const MAX_EVENTS = 100;

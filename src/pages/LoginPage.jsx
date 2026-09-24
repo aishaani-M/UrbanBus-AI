@@ -201,7 +201,7 @@ export default function LoginPage() {
           &copy; {new Date().getFullYear()} Government of India. All Rights Reserved.
         </div>
         <div className="login-footer-text">
-          Designed &amp; SIH Team Intelligent Fleet
+          Designed &amp; Created by SIH Team Intelligent Fleet
         </div>
       </div>
 

@@ -634,7 +634,7 @@ async def startup():
     logger.info("═══════════════════════════════════════════")
     logger.info("  UrbanBus Edge Demo Server")
     logger.info(f"  Simulating {len(buses)} buses")
-    logger.info("  WebSocket: ws://localhost:8000/ws")
+    logger.info("  WebSocket: wss://urbanbus-ai.onrender.com/ws")
     logger.info("═══════════════════════════════════════════")
     asyncio.create_task(event_loop())
 

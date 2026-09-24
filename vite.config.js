@@ -7,15 +7,16 @@ export default defineConfig({
   server: {
     proxy: {
       '/ws': {
-        target: 'ws://localhost:8000',
+        target: 'wss://urbanbus-ai.onrender.com',
         ws: true,
+        changeOrigin: true,
       },
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://urbanbus-ai.onrender.com',
         changeOrigin: true,
       },
       '/health': {
-        target: 'http://localhost:8000',
+        target: 'https://urbanbus-ai.onrender.com',
         changeOrigin: true,
       },
     },

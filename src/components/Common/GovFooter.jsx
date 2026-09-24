@@ -5,7 +5,7 @@ export default function GovFooter() {
         <div className="gov-footer-left">
           <div className="gov-footer-title">UrbanBus — Urban Intelligence Platform</div>
           <div className="gov-footer-text">
-            An initiative under the Smart Cities Mission, Bharat Electronics Limited, Government of India.
+            An initiative By SIH Team Intelligent Fleet, Bharat Electronics Limited, Government of India.
           </div>
         </div>
         <div className="gov-footer-right">

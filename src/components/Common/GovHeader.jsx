@@ -76,8 +76,8 @@ export default function GovHeader({ isConnected }) {
             <div className="gov-user-info">
               <UserCircle size={16} />
               <div className="gov-user-details">
-                <span className="gov-user-name">{user.name}</span>
-                <span className="gov-user-role">{user.designation}</span>
+                <span className="gov-user-name">{user.email}</span>
+                <span className="gov-user-role">Authenticated</span>
               </div>
               <button onClick={logout} className="gov-logout-btn" title="Logout">
                 <LogOut size={14} />

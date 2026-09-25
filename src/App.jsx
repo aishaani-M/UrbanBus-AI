@@ -16,7 +16,12 @@ import { useAuth } from './contexts/AuthContext';
 
 function AuthenticatedApp() {
   const { events, busUpdates, isConnected, stats } = useEdgeWebSocket(3000);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  // Show nothing while Supabase checks session
+  if (loading) {
+    return null;
+  }
 
   // Login page renders its own layout (no header/footer)
   if (!isAuthenticated) {
